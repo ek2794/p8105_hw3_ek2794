@@ -186,6 +186,8 @@ january_averagetmax
 
 Not surprisingly the average temperature is much higher in July as compared to January. 
 
+
+
 Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
 
 ```{r}
@@ -193,18 +195,24 @@ tmax_tmin = noaa_df_tidy %>%
   drop_na(c(tmax, tmin)) %>%
   ggplot(
     aes(x=tmax, y = tmin, color = year)) + 
-  geom_hex(alpha = 0.5)
+  geom_hex(alpha = 0.5) +
+  labs(
+    x = "tmax",
+    y = "tmin"
+  )
   
 tmax_tmin
 ```
 
 
 ```{r}
-snowfall = noaa_df_sample %>%
+snowfall = noaa_df_tidy %>%
   drop_na(snow) %>%
   filter(snow> 0, snow<100) %>%
     ggplot(aes(x=snow, y = year, color= year)) +
-    geom_hex(alpha = .5)
+    geom_point(alpha = .5) + 
+  labs(x = "snowfall (cm)",
+       y= "year")
 snowfall
 
 tmax_tmin + snowfall
