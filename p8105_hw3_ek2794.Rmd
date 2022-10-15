@@ -143,7 +143,7 @@ noaa_df_tidy = ny_noaa %>%
     tmax = tmax/10,
     tmin = tmin/10)
 
-head(ny_noaa)
+head(noaa_df_tidy)
 ```
 
 Here we cleaned the data, separating the date into year, month, and day, and transformed the snow, snwd, prcp to be in the same units as to be in the format of centimeters. The temperatures were converted to be in degrees rather than tenths of a degree. The most commonly observed value for snowfall is 0. This makes sense as this sample is from 180 countries with varied climates, majority of which likely do not experience snowfall on a routine basis given seasonal changes. 
@@ -157,7 +157,7 @@ find_mode <- function(x) {
 }
 
 noaa_df_omit = 
-  noaa_df %>%
+  noaa_df_tidy %>%
   drop_na(snow)
 
  find_mode(pull(noaa_df_omit, snow))
@@ -168,7 +168,7 @@ noaa_df_omit =
 Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
 
 ```{r}
-january_averagetmax = noaa_df_sample %>%
+january_averagetmax = noaa_df_tidy %>%
   arrange(id, year, month) %>%
   group_by(id, month, year) %>%
   summarize(
@@ -177,15 +177,19 @@ january_averagetmax = noaa_df_sample %>%
   ggplot(
     aes(x = year, y = average_tmax, group = id)) +
   geom_line(alpha = .5) +
-  facet_grid(.~month)
+  facet_grid(.~month) + 
+  labs(
+    title = "Average Tmax of months January and July")
 
 january_averagetmax
 ```
 
+Not surprisingly the average temperature is much higher in July as compared to January. 
+
 Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
 
 ```{r}
-tmax_tmin = noaa_df_sample %>%
+tmax_tmin = noaa_df_tidy %>%
   drop_na(c(tmax, tmin)) %>%
   ggplot(
     aes(x=tmax, y = tmin, color = year)) + 
