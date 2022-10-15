@@ -64,7 +64,7 @@ summary(accelerometer_df1)
 Here we can see that there are 50,400 observations with 6 variables. The variables are # of week, # of day, day of the week (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or Sunday), minute of the day, activity level, and type of day (weekday vs weekend). 
 
 
-Traditional analyses of accelerometer data focus on the total activity over the day. Using your tidied dataset, aggregate across minutes to create a total activity variable for each day, and create a table showing these totals. Are any trends apparent?
+##Traditional analyses of accelerometer data focus on the total activity over the day. Using your tidied dataset, aggregate across minutes to create a total activity variable for each day, and create a table showing these totals. Are any trends apparent?##
 
 
 ```{r}
@@ -98,7 +98,14 @@ Accelerometer data allows the inspection activity over the course of the day. Ma
 accelerometer_df1 %>%
 ggplot(aes(x = minute, y = activity_level, color = day)) +
   geom_smooth(se = FALSE) +
-  geom_line(alpha = 0.5)
+  geom_line(alpha = 0.5) +
+  labs(title = "24 hour activity",
+       x = "minute",
+       y = "activity level") +
+  scale_x_continuous(
+    breaks = c(0, 180, 360, 540, 720, 900, 1080, 1260, 1440),
+    labels = c("00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00", "24:00")
+  )
 ```
 
 Based off this graph, you can see that there is quite a bit of variability to the activity level with some outliers. You can see that the first 250 minutes or so have low activity levels with a peak of activity around 1250 minutes as well as smaller peaks scattered around 400, 600, and 1000 depending on the day. The highest activity level was on a Wednesday as you can see from the highest point on the graph. 
