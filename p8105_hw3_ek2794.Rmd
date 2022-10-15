@@ -108,7 +108,7 @@ ggplot(aes(x = minute, y = activity_level, color = day)) +
   )
 ```
 
-Based off this graph, you can see that there is quite a bit of variability to the activity level with some outliers. You can see that the first 250 minutes or so have low activity levels with a peak of activity around 1250 minutes as well as smaller peaks scattered around 400, 600, and 1000 depending on the day. The highest activity level was on a Wednesday as you can see from the highest point on the graph. 
+Based off this graph, you can see that there is quite a bit of variability to the activity level with some outliers. You can see that the there is decreased activity from about 10pm onwards until 7am, likely coinciding with people sleeping. There appears to be the greatest peaks around 9pm mostly on Fridays which likely corresponds to weekend activity levels. 
 
 
 
